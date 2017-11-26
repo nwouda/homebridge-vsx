@@ -5,7 +5,7 @@
         "port": 51826,
         "pin": "031-45-156"
     },
-    
+
     "description": "Hello World",
 
     "platforms": [],
@@ -13,10 +13,10 @@
     "accessories": [
         {
             "accessory": "VSX",
-            "name": "Pioneer VSX-921",
+            "name": "Pioneer VSX-528",
             "description": "AV Receiver",
-            "ip": "192.168.178.20",
-            "port": 23
+            "ip": "192.168.178.21",
+            "port": 8102
         }
     ]
 }

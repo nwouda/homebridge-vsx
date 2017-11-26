@@ -25,49 +25,49 @@ VSX.prototype.getServices = function() {
 }
 
 VSX.prototype.getOn = function(callback) {
-  
+
   var client = new net.Socket();
   client.connect(this.PORT, this.HOST, function() {
-   
+
     console.log('CONNECTED TO: ' + this.HOST + ':' + this.PORT);
     client.write('?P\r\n');
 
-  }); 
-    
+  });
+
     client.on('data', function(data) {
-    
+
       console.log('DATA: ' + data);
       var str = data.toString();
-      
-      if (str.includes("PWR1")) {
-        console.log("AUS");
+
+      if (str.includes("PWR2")) {
+        console.log("OFF");
         var on = false;
         client.destroy();
         callback(null,on);
-        
+
       } else if (str.includes("PWR0")) {
-        console.log("AN");
+        console.log("ON");
         var on = true;
         client.destroy();
         callback(null,on);
-        
+
       } else {
         console.log("waiting");
       }
 
   });
-  
+
     client.on('close', function() {
     console.log('Connection closed');
-    
+
   });
 
     client.on('error', function(ex) {
       console.log("handled error");
       console.log(ex);
       callback(ex)
-    
-  }); 
+
+  });
 }
 
 
@@ -79,11 +79,11 @@ VSX.prototype.setOn = function(on, callback) {
     client.connect(this.PORT, this.HOST, function() {
 
     console.log('CONNECTED TO: ' + this.HOST + ':' + this.PORT);
-    // Write a message to the socket as soon as the client is connected, the server will receive it as message from the client 
+    // Write a message to the socket as soon as the client is connected, the server will receive it as message from the client
     client.write('PO\r\n');
-    
+
     client.destroy();
-  
+
 });
      //Add a 'close' event handler for the client sock
     client.on('close', function() {
@@ -93,39 +93,39 @@ VSX.prototype.setOn = function(on, callback) {
 
     client.on('close', function() {
     console.log('Connection closed');
-    
+
 });
- 
+
     client.on('error', function(ex) {
     console.log("handled error");
     console.log(ex);
-    
-}); 
+
+});
 
   } else {
     var client = new net.Socket();
     client.connect(this.PORT, this.HOST, function() {
 
     console.log('CONNECTED TO: ' + this.HOST + ':' + this.PORT);
-    // Write a message to the socket as soon as the client is connected, the server will receive it as message from the client 
+    // Write a message to the socket as soon as the client is connected, the server will receive it as message from the client
     client.write('PF\r\n');
-    
+
     client.destroy();
-    
+
     });
-    
+
     //Add a 'close' event handler for the client sock
     client.on('close', function() {
     console.log('Connection closed');
-    
+
     });
-    
+
     client.on('error', function(ex) {
     console.log("handled error");
     console.log(ex);
-    
-    }); 
-    
+
+    });
+
   }
   callback();
 }
